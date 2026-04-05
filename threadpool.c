@@ -56,7 +56,7 @@ void* worker(void *args) {
 
     // Check if this was the final task
     if (completed_tasks == total_tasks) {
-      sem_post(&all_tasks_completed); // Signal the main thread!
+      sem_post(&all_tasks_completed); // we are done here
     }
     pthread_mutex_unlock(&lock);
   }
@@ -67,8 +67,6 @@ void* worker(void *args) {
 void pool_init(int num_threads) {
   thread_pool = malloc(num_threads * sizeof(pthread_t));
   task_list = calloc(QUEUE_SIZE, sizeof(Task));
-  dequeue_index = 0; // dequeue from here
-  enqueue_index = 0; // enqueue from here
   pthread_mutex_init(&lock, NULL);
   sem_init(&sem, 0, 0);
   sem_init(&all_tasks_completed, 0, 0);
@@ -89,7 +87,7 @@ int pool_submit(void (*somefunction)(void *p), void *p) {
     pthread_mutex_unlock(&lock);
     return 0;
   } else {
-    printf("enqueue failed");
+    printf("\nenqueue failed\n");
   }
   pthread_mutex_unlock(&lock);
 

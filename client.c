@@ -42,9 +42,10 @@ void compute_partial_product(void *arg) {
 
   int sum = 0;
   for (int k = 0; k < args->length; k++) {
-    if (matrixA[args->row][k] != 0) {
-      sum += matrixA[args->row][k] * matrixB[k][args->col];
-    }
+    int a = matrixA[args->row][k];
+    int b = matrixB[k][args->col];
+    if(a == 0 || b == 0) continue;
+    sum += a * b;
   }
   matrixC[args->row][args->col] = sum;
   free(args);
@@ -96,7 +97,7 @@ int main(int argc, char *argv[]) {
   int N = atoi(argv[2]);
   int P = atoi(argv[3]);
 
-  total_tasks = M * P;
+  total_tasks = M * P; // the size of the output matrix
 
   pool_init(NUMBER_OF_THREADS);
 
