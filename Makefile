@@ -16,4 +16,5 @@ threadpool.o: threadpool.c threadpool.h
 clean:
 	rm -rf *.o
 	rm -rf output
+	rm output.txt
 

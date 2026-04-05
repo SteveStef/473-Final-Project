@@ -14,4 +14,3 @@ To run the make file, enter "make"
 
 To run the example program, enter "./output 5 4 5" for a 5x4 multiplied with 4x5 matrix
 Then do cat output.txt to see the results
-
